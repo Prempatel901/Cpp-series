@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-    Define a C++ function to  print all prime numbers between two
+  1)  Define a C++ function to  print all prime numbers between two
     given numbers
 */
 
@@ -32,7 +32,7 @@ using namespace std;
 
 
 /*
-    Definde a C++ function to find the highest value digit in
+  2)  Definde a C++ function to find the highest value digit in
     a given number
 
 
@@ -143,8 +143,8 @@ int main(){
 
 
 /*
-    // Define a C++ function to check whether a given number is a term in a 
-    // fibonacci series or not.
+    5) Define a C++ function to check whether a given number is a term in a 
+        fibonacci series or not.
 
     int isFib(int n){
     int a=-1,b=1,c=0,i;
