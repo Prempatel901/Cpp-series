@@ -18,6 +18,11 @@ class Array
         void insert(int,int);
         void edit(int,int);
         void del(int);
+        int get(int);
+        int count();
+        int find(int);
+        ~Array();
+        
 };
 
 Array::Array(int cap)
@@ -72,4 +77,27 @@ void Array::del(int index){
     for(i=index;i<lastIndex;i++){
         ptr[i]=ptr[i+i];
     }
+    lastIndex--;
+}
+
+int Array::get(int index){
+    if(index<0 || index>lastIndex)
+        throw INVALID_INDEX;
+    return ptr[index];
+}
+
+int Array::count(){
+    return lastIndex+1;
+}
+
+Array::~Array(){
+    delete []ptr;
+
+}
+
+int Array::find(int data){
+    for(int i=0;i<=lastIndex;i++)
+        if(ptr[i]==data)
+            return i;
+    return -1;
 }
