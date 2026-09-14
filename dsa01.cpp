@@ -4,14 +4,16 @@ using namespace std;
 #define INVALID_INDEX 2
 
 
-class Array
+class DynArray
 {
     private:
         int capacity;
         int lastIndex;
         int *ptr;
     public:
-        Array(int);
+        DynArray(int);
+        DynArray(DynArray&);
+        DynArray operator=(DynArray&);
         bool isEmpty();
         bool isFull();
         void append(int);
@@ -21,11 +23,12 @@ class Array
         int get(int);
         int count();
         int find(int);
-        ~Array();
+        ~DynArray();
+
         
 };
 
-Array::Array(int cap)
+DynArray::DynArray(int cap)
 {
     if(capacity<=0)
         capacity = 10;
@@ -34,22 +37,40 @@ Array::Array(int cap)
     ptr= new int[cap];
 }
 
-bool Array::isEmpty(){
+DynArray::DynArray(DynArray& arr){
+    capacity=arr.capacity;
+    lastIndex=arr.lastIndex;
+    ptr=new int[capacity];
+    for(int i=0;i<=lastIndex;i++)
+        ptr[i]=arr.ptr[i];
+}
+
+DynArray DynArray::operator=(DynArray &arr){
+    delete []ptr;
+    capacity=arr.capacity;
+    lastIndex=arr.lastIndex;
+    ptr=new int[capacity];
+    for(int i=0;i<=lastIndex;i++)
+        ptr[i]=arr.ptr[i];
+    return *this;
+}
+
+bool DynArray::isEmpty(){
     return lastIndex==-1;
 }
 
-bool Array::isFull(){
+bool DynArray::isFull(){
     return capacity==lastIndex+1;
 }
 
-void Array::append(int data){
+void DynArray::append(int data){
     if(isFull)
         throw ARRAY_OVERFLOW;
     ptr[lastIndex+1]=data;
     lastIndex++;
 }
 
-void Array::insert(int index,int data){
+void DynArray::insert(int index,int data){
     if(index<0 || index>lastIndex+1)
         throw INVALID_INDEX;
     if(isFull())
@@ -64,13 +85,13 @@ void Array::insert(int index,int data){
 }
 
 
-void Array::edit(int index,int data){
+void DynArray::edit(int index,int data){
     if(index<0||index>lastIndex)
         throw INVALID_INDEX;
     ptr[index]=data;
 }
 
-void Array::del(int index){
+void DynArray::del(int index){
     if(index<0 || index>lastIndex)
         throw INVALID_INDEX;
     int i;
@@ -80,22 +101,22 @@ void Array::del(int index){
     lastIndex--;
 }
 
-int Array::get(int index){
+int DynArray::get(int index){
     if(index<0 || index>lastIndex)
         throw INVALID_INDEX;
     return ptr[index];
 }
 
-int Array::count(){
+int DynArray::count(){
     return lastIndex+1;
 }
 
-Array::~Array(){
+DynArray::~DynArray(){
     delete []ptr;
 
 }
 
-int Array::find(int data){
+int DynArray::find(int data){
     for(int i=0;i<=lastIndex;i++)
         if(ptr[i]==data)
             return i;
